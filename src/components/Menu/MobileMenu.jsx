@@ -33,7 +33,7 @@ export const  MobileMenu = () => {
           />
         </div>
       </div>
-      <Link to="/createaccount" className="bg-white w-fit m-auto absolute bottom-5 left-0 right-0">
+      <Link to="/createaccount" className="w-fit m-auto absolute bottom-5 left-0 right-0">
         <Button text="Criar Conta" />
       </Link>
     </div>

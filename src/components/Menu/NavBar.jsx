@@ -20,7 +20,7 @@ export const NavBar = ({
   const links = ["#projetos", "#sobre", "#contato"];
 
   const handleChangeNavBar = () => {
-    setMenuOpened(!menuOpened);
+    setMenuOpened(isMenuOpened => !isMenuOpened)
     handleCLick();
   };
 
