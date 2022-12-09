@@ -27,6 +27,7 @@ export function CreateAccount() {
       <NavBar
         dynamicButton={<LoginButton content="Início" link="/" />}
         login={<LoginButton content="Entrar" link="/login" />}
+        visible={true}
       />
 
       <Thought />

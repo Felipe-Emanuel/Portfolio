@@ -1,5 +1,4 @@
 import { useLottie } from "lottie-react";
-import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import ChangeMenu from "./Menu.json";
@@ -9,9 +8,10 @@ export const MenuChange = ({ closing }) => {
 
   useEffect(() => {
     closing === false ? setAnimationDirection(-1) : setAnimationDirection(1);
-  }, [closing]);
+    setDirection(animationDirection);
 
-  console.log(closing);
+    play()
+  }, [closing]);
 
   const options = {
     animationData: ChangeMenu,
@@ -23,7 +23,6 @@ export const MenuChange = ({ closing }) => {
   return (
     <button
       onClick={() => {
-        setDirection(animationDirection);
         play();
       }}
       className="right-0 top-2 absolute w-8 lg:hidden z-50"

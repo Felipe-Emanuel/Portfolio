@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export const ArchitectureButton = ({ content }) => {
+export const ArchitectureButton = ({ content, link }) => {
   return (
     <div
       className="
@@ -14,7 +14,7 @@ export const ArchitectureButton = ({ content }) => {
         after:top-14 lg:after:top-9
       "
     >
-      <a href="#Architecture" aria-label={content}>
+      <a href={link} aria-label={content}>
         {content}
       </a>
     </div>

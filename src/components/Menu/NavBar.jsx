@@ -2,10 +2,13 @@ import { NavLink } from "./NavLink";
 import { MobileMenu } from "./MobileMenu";
 import { useState } from "react";
 import { ArchitectureButton } from "../Button/ArchitectureButton";
+import { Link } from "react-router-dom";
 
 export const NavBar = ({
+  className,
+  visible,
+  Architecture,
   route,
-  closingNavBarButton,
   handleCLick,
   dynamicButton,
   login,
@@ -20,34 +23,38 @@ export const NavBar = ({
     setMenuOpened(!menuOpened);
     handleCLick();
   };
-  
+
   const handleBlur = () => {
     setTimeout(() => {
       handleCLick();
       setMenuOpened(!menuOpened);
     }, 300);
-    closingNavBarButton()
   };
 
   return (
-    <nav className="relative ">
+    <nav className={`${className} relative`}>
       <div onClick={() => handleChangeNavBar()}>{MenuChange}</div>
       <div className="lg:hidden">
         <div className="z-50 text-sm w-12">{dynamicButton}</div>
       </div>
       <div className="hidden lg:flex lg:space-x-9 py-2 space-x-2">
         <NavLink content="Início" link="/" />
-        {links.map((link) => {
-          return <NavLink key={link} content={link.split("#")} link={`${route}${link}`.split("#")} />;
-        })}
-        <ArchitectureButton link="/ArchitectureButton" content="Arquitetura" />
+        {route &&
+          links.map((link) => {
+            return <NavLink key={link} content={link.split("#")} link={link} />;
+          })}
+        {Architecture && (
+          <ArchitectureButton link="#Architecture" content="Arquitetura" />
+        )}
+      </div>
+      {visible && (
         <div className="right-0 absolute flex space-x-6 top-2">
           {login}
           {logoff}
-          <a href="/createaccount">{createAccount}</a>
+          <Link to="/createaccount">{createAccount}</Link>
         </div>
-      </div>
-      {menuOpened === true ? (
+      )}
+      {menuOpened && (
         <>
           <div
             onClick={() => handleBlur()}
@@ -59,7 +66,7 @@ export const NavBar = ({
             <MobileMenu />
           </div>
         </>
-      ) : null}
+      )}
     </nav>
   );
 };

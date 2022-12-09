@@ -1,6 +1,7 @@
 import { NavLink } from "./NavLink";
 import { Button } from "../Button/Button";
 import { ArchitectureButton } from "../Button/ArchitectureButton";
+import { Link } from "react-router-dom";
 
 export const  MobileMenu = () => {
   const links = ["#projetos", "#sobre", "#contato"];
@@ -8,11 +9,11 @@ export const  MobileMenu = () => {
   return (
     <div
       className="
-        absolute inset-0 inset-y-10 m-auto transition-colors
+        fixed inset-0 mt-16 left-[15%] right-[15%] sm:mx-10 transition-colors
         text-center shadow-innerDefault font-default rounded-lg
         bg-colorsDark ring-1 ring-default
 
-        sm:left-[50%]
+        sm:left-[50%] sm:right-0
 
         lg:hidden
 
@@ -27,14 +28,14 @@ export const  MobileMenu = () => {
             return <NavLink key={link} content={link.split("#")} link={link} />;
           })}
           <ArchitectureButton
-            link="/ArchitectureButton"
+            link="#Architecture"
             content="Arquitetura"
           />
         </div>
       </div>
-      <a href="/createaccount" className="absolute bottom-5 left-0 right-0">
+      <Link to="/createaccount" className="bg-white w-fit m-auto absolute bottom-5 left-0 right-0">
         <Button text="Criar Conta" />
-      </a>
+      </Link>
     </div>
   );
 };

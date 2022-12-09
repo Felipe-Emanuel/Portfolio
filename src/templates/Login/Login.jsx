@@ -24,19 +24,23 @@ export function Login() {
         2xl:px-64
       "
     >
-      <NavBar route='/' dynamicButton={<LoginButton content="Início" link="/" />} createAccount={<Button text="Criar Conta" />}/>
+      <NavBar
+        dynamicButton={<LoginButton content="Início" link="/" />}
+        createAccount={<Button text="Criar Conta" />}
+        visible={true}
+      />
       <Thought />
 
       <main
         className="
-        bg-colorsDark bg-opacity-50 shadow-login
-        rounded-tl-3xl rounded-br-3xl rounded
+          bg-colorsDark bg-opacity-50 shadow-login
+          rounded-tl-3xl rounded-br-3xl rounded
 
-        m-auto sticky top-[22vh] px-4 pb-1
-        
-         lg:px-16 
-        
-        max-w-2xl animate-float
+          m-auto sticky top-[22vh] px-4 pb-1
+          
+          lg:px-16 
+          
+          max-w-2xl animate-float
         "
       >
         <div className="rotate-180 xl:hidden">
