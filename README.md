@@ -16,7 +16,7 @@
 > Aqui será onde terá toda a arquitetura explicada, os desafios enfrentados e as tomadas de decisões para solucionar cada um deles. Para isso será necessário cadastrar um e-mail de maneira bem simples, como mostrado abaixo:
 
 <div align="center"> 
-  <img align="center" alt="HomePage" height="350" width="600" src="https://user-images.githubusercontent.com/108142146/206311781-40844629-4aa9-4045-afad-257b301cb9b2.gif" />
+  <img align="center" alt="HomePage" height="350" width="600" src="https://user-images.githubusercontent.com/108142146/206742108-6bfb7d77-6ccd-436c-a7f8-e39d1721d5f0.gif" />
 </div>
 
 >> ## Por que se registrar?
