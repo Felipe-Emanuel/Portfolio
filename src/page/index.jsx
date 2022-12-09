@@ -13,7 +13,8 @@ export function Page() {
   const closing = false;
 
   function bluSetup() {
-    setOnBlur(!onBlur);
+
+    setOnBlur(onBlur => !onBlur);
   }
 
   const pages = [

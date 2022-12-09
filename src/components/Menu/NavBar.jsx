@@ -27,7 +27,7 @@ export const NavBar = ({
   const handleBlur = () => {
     setTimeout(() => {
       handleCLick();
-      setMenuOpened(!menuOpened);
+      setMenuOpened(menuOpened => !menuOpened);
     }, 300);
   };
 
