@@ -12,8 +12,14 @@ import { NavBar } from "../../components/Menu/NavBar";
 import { FloatLabel } from "../../components/InputComponent/FloatLabel";
 import { LoginButton } from "../../components/Menu/LoginButton";
 import { useFormik } from "../../hooks/useFormik";
+import { BaseURL } from "../../services/baseURL";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function CreateAccount() {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -22,6 +28,29 @@ export function CreateAccount() {
       confirmPassword: "",
     },
   });
+
+  const dataURL = async (data) => {
+    const res = await fetch(`${BaseURL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((resp) => resp.json())
+      .then((data) =>
+        data.auth != true ? setError(data.message) : navigate("/login")
+      );
+
+    return res;
+  };
+
+  const handleShubmit = (e) => {
+    e.preventDefault();
+
+    dataURL(formik.values);
+  };
+
   return (
     <div
       className=" 
@@ -39,8 +68,6 @@ export function CreateAccount() {
         visible={true}
       />
 
-      <Thought />
-
       <main
         className="
           bg-colorsDark bg-opacity-50 shadow-login
@@ -56,16 +83,11 @@ export function CreateAccount() {
         <div className="rotate-180 xl:hidden">
           <LoginAnimation />
         </div>
-
+        <Thought />
         <Text className="text-colorsIcons text-center py-4">
           Bem vindo ao espaço!
         </Text>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log(formik.values);
-          }}
-        >
+        <form onSubmit={(e) => handleShubmit(e)}>
           <FloatLabel
             icon={<User className="w-6 h-6" />}
             floatText="Nome"
@@ -101,6 +123,9 @@ export function CreateAccount() {
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
           />
+          <Text className="text-colorsIcons w-fit m-auto hover:text-violet-500">
+            {error}
+          </Text>
 
           <div className="rotate-45 hidden xl:block">
             <LoginAnimation />

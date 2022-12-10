@@ -21,7 +21,7 @@ export const NavBar = ({
 }) => {
   const [menuOpened, setMenuOpened] = useState(false);
   const links = ["#projetos", "#sobre", "#contato"];
-  const { logout, authenticated } = useContext(AuthContext)
+  const { logout, authenticated } = useContext(AuthContext);
 
   const handleChangeNavBar = () => {
     setMenuOpened((isMenuOpened) => !isMenuOpened);
@@ -36,14 +36,18 @@ export const NavBar = ({
   };
 
   const handleLogout = () => {
-    logout()
+    logout();
   };
 
   return (
     <nav className={`${className} relative`}>
       <div onClick={() => handleChangeNavBar()}>{MenuChange}</div>
       <div className="lg:hidden">
-        <div className="z-50 text-sm w-12">{dynamicButton}</div>
+        {authenticated ? (
+          <div onClick={() => handleLogout()}>{logoff}</div>
+        ) : (
+          <div className="z-50 text-sm w-12">{dynamicButton}</div>
+        )}
       </div>
       <div className="hidden lg:flex lg:space-x-9 py-2 space-x-2">
         <NavLink content="Início" link="/" />

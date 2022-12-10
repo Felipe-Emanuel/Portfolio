@@ -15,9 +15,12 @@ import { Thought } from "../../animations/LoginAnimation/Thought";
 import { NavBar } from "../../components/Menu/NavBar";
 import { LoginButton } from "../../components/Menu/LoginButton";
 import { useFormik } from "../../hooks/useFormik";
+import { useState } from "react";
+import { BaseURL } from "../../services/baseURL";
 
 export function Login() {
-  const { authenticated, login } = useContext(AuthContext);
+  const [msg, setMsg] = useState("");
+  const { login } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -26,10 +29,24 @@ export function Login() {
     },
   });
 
+  const dataURL = async (data) => {
+    const res = await fetch(`${BaseURL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((resp) => resp.json())
+      .then((data) => (data.auth != true ? setMsg(data.message) : false));
+
+    return res;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("submit", formik.values.email, formik.values.password);
+    dataURL(formik.values);
 
     login(formik.values.email, formik.values.password);
   };
@@ -104,7 +121,9 @@ export function Login() {
               Esqueceu sua senha?
             </button>
           </div>
-
+          <Text className="text-colorsIcons w-fit m-auto hover:text-violet-500">
+            {msg}
+          </Text>
           <div className="text-center pt-4 lg:pb-4">
             <Button className="text-xs ring-violet-500" text="Entrar" />
           </div>
