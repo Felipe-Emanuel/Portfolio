@@ -1,10 +1,18 @@
+import { useContext } from "react";
+
+import { AuthContext } from "../../contexts/Auth";
 import { NavLink } from "./NavLink";
 import { Button } from "../Button/Button";
 import { ArchitectureButton } from "../Button/ArchitectureButton";
 import { Link } from "react-router-dom";
 
-export const  MobileMenu = () => {
+export const MobileMenu = () => {
   const links = ["#projetos", "#sobre", "#contato"];
+  const { logout, authenticated } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div
@@ -27,15 +35,21 @@ export const  MobileMenu = () => {
           {links.map((link) => {
             return <NavLink key={link} content={link.split("#")} link={link} />;
           })}
-          <ArchitectureButton
-            link="#Architecture"
-            content="Arquitetura"
-          />
+          <ArchitectureButton link="#Architecture" content="Arquitetura" />
         </div>
       </div>
-      <Link to="/createaccount" className="w-fit m-auto absolute bottom-5 left-0 right-0">
-        <Button text="Criar Conta" />
-      </Link>
+      {!authenticated ? (
+        <Link
+          to="/createaccount"
+          className="w-fit m-auto absolute bottom-5 left-0 right-0"
+        >
+          <Button text="Criar Conta" />
+        </Link>
+      ) : (
+        <div className="w-fit m-auto absolute bottom-5 left-0 right-0">
+          <Button onClick={() => handleLogout()} text="sair" />
+        </div>
+      )}
     </div>
   );
 };

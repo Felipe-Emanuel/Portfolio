@@ -1,8 +1,11 @@
+import { useContext } from "react";
+
 import { Envelope } from "phosphor-react";
 import { Lock } from "phosphor-react";
 
 import { LoginAnimation } from "../../animations/LoginAnimation/LoginAnimation";
 
+import { AuthContext } from "../../contexts/Auth";
 import { Text } from "../../components/TextComponent/Text";
 import { Button } from "../../components/Button/Button";
 import { NavLink } from "../../components/Menu/NavLink";
@@ -11,8 +14,26 @@ import { FloatLabel } from "../../components/InputComponent/FloatLabel";
 import { Thought } from "../../animations/LoginAnimation/Thought";
 import { NavBar } from "../../components/Menu/NavBar";
 import { LoginButton } from "../../components/Menu/LoginButton";
+import { useFormik } from "../../hooks/useFormik";
 
 export function Login() {
+  const { authenticated, login } = useContext(AuthContext);
+
+  const formik = useFormik({
+    initialValues: {
+      email: "@gmail.com",
+      password: "",
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("submit", formik.values.email, formik.values.password);
+
+    login(formik.values.email, formik.values.password);
+  };
+
   return (
     <div
       className=" 
@@ -30,7 +51,6 @@ export function Login() {
         visible={true}
       />
       <Thought />
-
       <main
         className="
           bg-colorsDark bg-opacity-50 shadow-login
@@ -49,17 +69,23 @@ export function Login() {
         <Text className="text-colorsIcons text-center py-8 cursor-default">
           Bem vindo ao espaço!
         </Text>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <FloatLabel
             icon={<Envelope className="w-6 h-6" />}
             floatText="Email"
             type="email"
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
           />
 
           <FloatLabel
             icon={<Lock className="w-6 h-6" />}
             floatText="Senha"
             type="password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
           />
 
           <div className="rotate-45 hidden xl:block">

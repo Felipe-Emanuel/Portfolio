@@ -1,3 +1,6 @@
+import { useContext } from "react";
+
+import { AuthContext } from "../../contexts/Auth";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { LoginButton } from "../../components/Menu/LoginButton";
@@ -6,6 +9,9 @@ import { SocialMedia } from "../../components/SocialMedia/SocialMedia";
 import { TextGroupComponent } from "../../components/TextGroup/TextGroupComponent";
 
 export const Home = () => {
+  const { authenticated } = useContext(AuthContext)
+
+
   return (
     <div
       className={`
@@ -23,12 +29,18 @@ export const Home = () => {
           route={true}
           dynamicButton={<LoginButton content="Entrar" link="/login" />}
           Architecture={true}
+          logoff={<Button text="Sair" />}
         />
         <div className=" hidden right-0 absolute lg:flex lg:flex-row space-x-6 top-2">
-          <LoginButton content="Entrar" link="/login" />
-          <Link to="/createaccount">
-            <Button text="Criar Conta" />
-          </Link>
+          {!authenticated && 
+          <>
+            <LoginButton content="Entrar" link="/login" />
+            <Link to="/createaccount">
+              <Button text="Criar Conta" />
+            </Link>
+          </>
+          }
+          
         </div>
       </nav>
       <SocialMedia />

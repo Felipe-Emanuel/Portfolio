@@ -1,4 +1,12 @@
-export const FloatLabel = ({ floatText, type, className, icon }) => {
+export const FloatLabel = ({
+  floatText,
+  type,
+  className,
+  icon,
+  name,
+  value,
+  onChange
+}) => {
   return (
     <>
       <span className="relative -bottom-9 z-0 left-2 text-colorsIcons">
@@ -6,6 +14,9 @@ export const FloatLabel = ({ floatText, type, className, icon }) => {
       </span>
       <div className={`${className} relative mb-2`}>
         <input
+          onChange={onChange}
+          value={value}
+          name={name}
           type={type}
           id={floatText}
           className="
@@ -14,7 +25,7 @@ export const FloatLabel = ({ floatText, type, className, icon }) => {
 
            text-violet-500 focus:text-colorsIcons
 
-            ring-1 ring-violet-500 
+            ring-1 ring-opacity-25 focus:ring-opacity-50 ring-violet-500 
             focus-within:shadow-md focus-within:shadow-violet-500
           
             focus:pb-2.5 pt-4 text-xs font-bold rounded-lg focus:outline-none peer

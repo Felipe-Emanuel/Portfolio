@@ -1,3 +1,6 @@
+import { useContext } from "react";
+
+import { AuthContext } from "../../contexts/Auth";
 import { NavLink } from "./NavLink";
 import { MobileMenu } from "./MobileMenu";
 import { useState } from "react";
@@ -18,17 +21,22 @@ export const NavBar = ({
 }) => {
   const [menuOpened, setMenuOpened] = useState(false);
   const links = ["#projetos", "#sobre", "#contato"];
+  const { logout, authenticated } = useContext(AuthContext)
 
   const handleChangeNavBar = () => {
-    setMenuOpened(isMenuOpened => !isMenuOpened)
+    setMenuOpened((isMenuOpened) => !isMenuOpened);
     handleCLick();
   };
 
   const handleBlur = () => {
     setTimeout(() => {
       handleCLick();
-      setMenuOpened(menuOpened => !menuOpened);
+      setMenuOpened((menuOpened) => !menuOpened);
     }, 300);
+  };
+
+  const handleLogout = () => {
+    logout()
   };
 
   return (
@@ -47,10 +55,12 @@ export const NavBar = ({
           <ArchitectureButton link="#Architecture" content="Arquitetura" />
         )}
       </div>
+      <div className="hidden right-0 absolute lg:flex space-x-6 top-2">
+        {authenticated && <div onClick={() => handleLogout()}>{logoff}</div>}
+      </div>
       {visible && (
         <div className="right-0 absolute flex space-x-6 top-2">
           {login}
-          {logoff}
           <Link to="/createaccount">{createAccount}</Link>
         </div>
       )}

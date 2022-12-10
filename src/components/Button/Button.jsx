@@ -1,6 +1,8 @@
-export const Button = ({ text, className }) => {
+export const Button = ({ text, className, onClick }) => {
     return (
-        <button className={` ${className}
+        <button
+        onClick={onClick}
+        className={` ${className}
             text-sm m-auto bg-opacity-20
             bg-colorsText text-colorsIcons ring-1 ring-default
             text-center px-8 py-2 shadow-innerDefault font-default

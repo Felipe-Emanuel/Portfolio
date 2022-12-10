@@ -11,8 +11,17 @@ import { Thought } from "../../animations/LoginAnimation/Thought";
 import { NavBar } from "../../components/Menu/NavBar";
 import { FloatLabel } from "../../components/InputComponent/FloatLabel";
 import { LoginButton } from "../../components/Menu/LoginButton";
+import { useFormik } from "../../hooks/useFormik";
 
 export function CreateAccount() {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "@gmail.com",
+      password: "",
+      confirmPassword: "",
+    },
+  });
   return (
     <div
       className=" 
@@ -51,29 +60,46 @@ export function CreateAccount() {
         <Text className="text-colorsIcons text-center py-4">
           Bem vindo ao espaço!
         </Text>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log(formik.values);
+          }}
+        >
           <FloatLabel
             icon={<User className="w-6 h-6" />}
             floatText="Nome"
             type="text"
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
           />
 
           <FloatLabel
             icon={<Envelope className="w-6 h-6" />}
             floatText="Email"
             type="email"
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
           />
 
           <FloatLabel
             icon={<Lock className="w-6 h-6" />}
             floatText="Senha"
             type="password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
           />
 
           <FloatLabel
             icon={<Lock className="w-6 h-6" />}
             floatText="Confirme sua senha"
             type="password"
+            name="confirmPassword"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
           />
 
           <div className="rotate-45 hidden xl:block">
