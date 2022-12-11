@@ -1,3 +1,7 @@
+import * as yup from "yup";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Envelope } from "phosphor-react";
 import { User } from "phosphor-react";
 import { Lock } from "phosphor-react";
@@ -13,8 +17,6 @@ import { FloatLabel } from "../../components/InputComponent/FloatLabel";
 import { LoginButton } from "../../components/Menu/LoginButton";
 import { useFormik } from "../../hooks/useFormik";
 import { BaseURL } from "../../services/baseURL";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export function CreateAccount() {
   const [error, setError] = useState("");
@@ -23,7 +25,7 @@ export function CreateAccount() {
   const formik = useFormik({
     initialValues: {
       name: "",
-      email: "@gmail.com",
+      email: "",
       password: "",
       confirmPassword: "",
     },
@@ -45,8 +47,27 @@ export function CreateAccount() {
     return res;
   };
 
-  const handleShubmit = (e) => {
+  async function validate() {
+    const schema = yup.object().shape({
+      email: yup
+        .string("Por favor, insira um e-mail válido!")
+        .required("Por favor, insira um e-mail válido!")
+        .email("Por favor, insira um e-mail válido!"),
+    });
+
+    try {
+      await schema.validate({ email: formik.values.email });
+      return true;
+    } catch (err) {
+      setError(err.errors);
+      return false;
+    }
+  }
+
+  const handleShubmit = async (e) => {
     e.preventDefault();
+
+    if (!(await validate())) return;
 
     dataURL(formik.values);
   };
@@ -62,6 +83,7 @@ export function CreateAccount() {
         2xl:px-64
       "
     >
+      <Thought />
       <NavBar
         dynamicButton={<LoginButton content="Início" link="/" />}
         login={<LoginButton content="Entrar" link="/login" />}
@@ -75,7 +97,7 @@ export function CreateAccount() {
 
           m-auto sticky top-[16vh] px-8 pb-1
           
-           lg:px-16 
+          lg:px-16 
           
           max-w-2xl animate-float
         "
@@ -83,12 +105,12 @@ export function CreateAccount() {
         <div className="rotate-180 xl:hidden">
           <LoginAnimation />
         </div>
-        <Thought />
         <Text className="text-colorsIcons text-center py-4">
           Bem vindo ao espaço!
         </Text>
         <form onSubmit={(e) => handleShubmit(e)}>
           <FloatLabel
+            pattern="[a-z\s][A-zÀ-ú][^0-9]+$"
             icon={<User className="w-6 h-6" />}
             floatText="Nome"
             type="text"
@@ -113,6 +135,7 @@ export function CreateAccount() {
             name="password"
             value={formik.values.password}
             onChange={formik.handleChange}
+            ViewPassword={true}
           />
 
           <FloatLabel
@@ -122,6 +145,7 @@ export function CreateAccount() {
             name="confirmPassword"
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
+            ViewPassword={true}
           />
           <Text className="text-colorsIcons w-fit m-auto hover:text-violet-500">
             {error}

@@ -24,7 +24,7 @@ export function Login() {
 
   const formik = useFormik({
     initialValues: {
-      email: "@gmail.com",
+      email: "",
       password: "",
     },
   });
@@ -103,6 +103,7 @@ export function Login() {
             name="password"
             value={formik.values.password}
             onChange={formik.handleChange}
+            ViewPassword={true}
           />
 
           <div className="rotate-45 hidden xl:block">

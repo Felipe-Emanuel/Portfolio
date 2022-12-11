@@ -7,7 +7,6 @@ import { api, AuthLogin } from "../services/api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [msg, setMsg] = useState("");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     const response = await AuthLogin(email, password);
 
-    const loggedUser = response.data.email;
+    const loggedUser = response.data.id;
     const token = response.data.token;
 
     localStorage.setItem("user", JSON.stringify(loggedUser));
@@ -51,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ authenticated: !!user, user, loading, login, logout, msg: msg }}
+      value={{ authenticated: !!user, user, loading, login, logout }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,12 +1,24 @@
+import { Eye, EyeClosed } from "phosphor-react";
+import { useState } from "react";
+
 export const FloatLabel = ({
+  pattern,
   floatText,
   type,
   className,
   icon,
+  ViewPassword,
   name,
   value,
-  onChange
+  onChange,
 }) => {
+  const [view, setView] = useState(type);
+  const handleViewPassword = () => {
+    setView("text");
+  };
+  const handleHiddePassword = () => {
+    setView("password");
+  };
   return (
     <>
       <span className="relative -bottom-9 z-0 left-2 text-colorsIcons">
@@ -14,10 +26,11 @@ export const FloatLabel = ({
       </span>
       <div className={`${className} relative mb-2`}>
         <input
+          pattern={pattern}
           onChange={onChange}
           value={value}
           name={name}
-          type={type}
+          type={(type = view)}
           id={floatText}
           className="
             truncate w-full lowercase px-10 h-12 py-4 appearance-none
@@ -32,6 +45,20 @@ export const FloatLabel = ({
           "
           placeholder=" "
         />
+        {ViewPassword && (
+          <span
+            onMouseEnter={() => handleViewPassword()}
+            onMouseLeave={() => handleHiddePassword()}
+            className="absolute bottom-4 top-3 right-2 text-colorsIcons"
+          >
+            {view === "password" ? (
+              <EyeClosed className="h-6 w-6" />
+            ) : (
+              <Eye className="h-6 w-6" />
+            )}
+          </span>
+        )}
+
         <label
           htmlFor={floatText}
           className="
