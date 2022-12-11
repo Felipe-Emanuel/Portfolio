@@ -49,7 +49,6 @@ export const FloatLabel = ({
           <span
             onMouseEnter={() => handleViewPassword()}
             onMouseLeave={() => handleHiddePassword()}
-            onTouch={() => handleViewPassword()}
             className="absolute bottom-4 top-3 right-2 text-colorsIcons"
           >
             {view === "password" ? (

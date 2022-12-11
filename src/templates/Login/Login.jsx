@@ -15,12 +15,9 @@ import { Thought } from "../../animations/LoginAnimation/Thought";
 import { NavBar } from "../../components/Menu/NavBar";
 import { LoginButton } from "../../components/Menu/LoginButton";
 import { useFormik } from "../../hooks/useFormik";
-import { useState } from "react";
-import { BaseURL } from "../../services/baseURL";
 
 export function Login() {
-  const [msg, setMsg] = useState("");
-  const { login } = useContext(AuthContext);
+  const { login, dataURL, msg } = useContext(AuthContext);
 
   const formik = useFormik({
     initialValues: {
@@ -28,21 +25,7 @@ export function Login() {
       password: "",
     },
   });
-
-  const dataURL = async (data) => {
-    const res = await fetch(`${BaseURL}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then((data) => (data.auth != true ? setMsg(data.message) : false));
-
-    return res;
-  };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
