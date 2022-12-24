@@ -9,7 +9,7 @@ export const Button = ({ text, className, onClick, disabled, type, title }) => {
         disabled:cursor-not-allowed disabled:after:ring-white disabled:ring-red-500
         disabled:text-white disabled:hover:text-red-500
 
-        transform 
+        transform
 
         hover:bg-transparent bg-transparent duration-300 hover:ring-colorsIcons
 
@@ -20,7 +20,7 @@ export const Button = ({ text, className, onClick, disabled, type, title }) => {
 
         text-sm m-auto bg-opacity-20
         bg-colorsText text-colorsIcons ring-1 ring-default
-        text-center px-8 py-2 shadow-innerDefault font-default
+        text-center sm:px-8 px-2 sm:py-2 py-1 shadow-innerDefault font-default
         font-bold transition-all rounded
         hover:text-colorsText hover:shadow-innerHover hover:bg-colorsDark
         focus:ring-violet-500
