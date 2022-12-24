@@ -19,6 +19,12 @@
   <img align="center" alt="HomePage" height="350" width="600" src="https://user-images.githubusercontent.com/108142146/206742108-6bfb7d77-6ccd-436c-a7f8-e39d1721d5f0.gif" />
 </div>
 
+> Caso tenha a necessidade da troca de senha, um simples processo de <a href="https://github.com/Felipe-Emanuel/Portfolio/blob/main/src/templates/Login/Recovery.jsx" target="_blank">recuperação</a> resolve o problema: 
+
+<div align="center"> 
+  <img align="center" alt="HomePage" height="350" width="600" src="https://user-images.githubusercontent.com/108142146/209451312-84a781ea-5ab9-4017-8982-3c186004b72f.gif" />
+</div>
+
 >> ## Por que se registrar?
 > Como acredito que saber e entender a arquitetura de um projeto é uma parte importante demais para deixar de lado, pretendo estar sempre enviando um e-mail com toda a documentação da arquitetura de cada projeto novo que for inserido nesta vitrine, desde as decisões no Figma às aplicações dentro do próprio projeto e anotações do Notion. E para isso preciso do email dos interessados... E não é só isso! Em um futuro bem próximo pretendo também estar criando um blog onde postarei dicas sobre Frontend com as principais staks que uso diariamente (JavaScript, ReactJs, TailwindCss) com o intuito de conversar com os devs que tenham interesse nas tecnologias principais do mercado atual!
 
