@@ -8,7 +8,7 @@ import { BaseURL } from "../services/baseURL";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [userEmail, setUserEmail] = useState("");
+  const [successRecovery, setSuccessRecovery] = useState("");
   const [msg, setMsg] = useState("");
   const [user, setUser] = useState("");
   const [validationNumber, setValidationNumber] = useState(0);
@@ -91,6 +91,7 @@ export const AuthProvider = ({ children }) => {
 
     setMsg(null);
     setUser(null);
+    setSuccessRecovery(null)
     navigate("/login");
   };
 
@@ -128,6 +129,10 @@ export const AuthProvider = ({ children }) => {
       .then((data) => {
         setMsg(data.message);
         localStorage.removeItem("userEmail");
+        setSuccessRecovery("Senha alterada com sucesso");
+        setTimeout(() => {
+          setSuccessRecovery(null)
+        }, 2500)
         data.status === 200 && navigate("/login", { replace: true });
       });
 
@@ -147,6 +152,7 @@ export const AuthProvider = ({ children }) => {
         register,
         recoveryEmail,
         recoveryPass,
+        successRecovery,
         msg: msg,
         userName: localStorage.getItem("userName"),
         modal,

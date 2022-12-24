@@ -1,3 +1,5 @@
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 
 import { Envelope } from "phosphor-react";
@@ -19,21 +21,20 @@ import { Modal } from "../../components/Modal/Modal";
 import { ElipseLoadingAnimation } from "../../animations/Loading/ElipseLoadingAnimation";
 
 export function Login() {
-  const { login, dataURL, msg, authenticated, loading } =
+  const { login, dataURL, msg, authenticated, loading, successRecovery } =
     useContext(AuthContext);
   const [message, setMessage] = useState(null);
+  const [teste, setTeste] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
   });
-  const { email, password } = formik.values
+  const { email, password } = formik.values;
 
   useEffect(() => {
-    email.length || password.length > 0
-      ? setMessage(msg)
-      : setMessage("");
+    email.length || password.length > 0 ? setMessage(msg) : setMessage("");
   }, [msg]);
 
   const handleSubmit = (e) => {
@@ -43,6 +44,19 @@ export function Login() {
 
     login(email, password);
   };
+
+  useEffect(() => {
+    successRecovery && setTeste(true)
+    setTimeout(() => {
+      setTeste(false)
+    }, 2500)
+  }, [successRecovery])
+
+  toast.success(successRecovery, {
+    position: "top-left",
+    autoClose: 1000,
+    theme: "dark",
+  });
 
   return (
     <div
@@ -55,6 +69,7 @@ export function Login() {
         2xl:px-64
       "
     >
+      {teste && <ToastContainer limit={1} />}
       {authenticated && <Modal />}
 
       <NavBar

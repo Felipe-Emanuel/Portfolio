@@ -1,5 +1,6 @@
 import { useContext, useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ElipseLoadingAnimation } from "../../animations/Loading/ElipseLoadingAnimation";
 
 import { AuthContext } from "../../contexts/Auth";
 import { Button } from "../Button/Button";
@@ -9,6 +10,7 @@ import { Text } from "../TextComponent/Text";
 export function ModalRecovery({ message, retry }) {
   const { validationNumber } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
+  const [inputValue, setInputValue] = useState(false);
   const [time, setTime] = useState(60);
   const timeout = useRef(0);
   const navigate = useNavigate();
@@ -35,11 +37,15 @@ export function ModalRecovery({ message, retry }) {
   };
 
   const handleChange = (e) => {
-    e.target.value == validationNumber && navigate("/newpassword");
+    e.target.value == validationNumber &&
+    setInputValue(inputValue => !inputValue)
+    setTimeout(() => {
+        navigate("/newpassword");
+      }, 1000);
   };
 
   const handleCancel = () => {
-    navigate("/login")
+    navigate("/login");
   };
 
   return (
@@ -77,7 +83,12 @@ export function ModalRecovery({ message, retry }) {
           onChange={(e) => handleChange(e)}
         />
       </form>
-      <Button title='Voltar para tela de conexão' text='Cancelar' onClick={() => handleCancel()}/>
+      {inputValue ? <ElipseLoadingAnimation /> : <Button
+        title="Voltar para tela de conexão"
+        text= "Cancelar"
+        onClick={() => handleCancel()}
+      />}
+      
     </section>
   );
 }

@@ -47,6 +47,11 @@ export function Recovery() {
     formik.values.email.length <= 0 && setDisabled(true);
   }, [formik.values.email]);
 
+  useEffect(() => {
+    loading && setDisabled(true)
+  }, [loading]);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
