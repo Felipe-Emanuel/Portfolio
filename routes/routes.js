@@ -6,5 +6,7 @@ const router = Router();
 
 router.use("/user", userRouter);
 router.use("/auth", authRoutes);
+router.use("/forgotpassword", authRoutes);
+router.use("/resetpassword", authRoutes);
 
 module.exports = router;

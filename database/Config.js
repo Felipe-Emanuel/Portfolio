@@ -6,7 +6,7 @@ const conn = async () => {
   try {
     const dbConn = await mongoose.connect(
       `mongodb+srv://${dbUser}:${dbPassword}@cluster0.66htd2j.mongodb.net/?retryWrites=true&w=majority`
-    );
+    )
     return dbConn;
   } catch (err) {
     console.log(err);
