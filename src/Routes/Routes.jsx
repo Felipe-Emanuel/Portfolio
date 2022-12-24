@@ -15,13 +15,16 @@ import { Login } from "../templates/Login/Login";
 import { CreateAccount } from "../templates/Login/CreateAccount";
 import { PageNotFound } from "../templates/PageNotFound/PageNotFound";
 import { ArchitecturePage } from "../page/ArchitecturePage";
+import { Recovery } from "../templates/Login/Recovery";
+import { PrivateLoading } from "../templates/SPA/PrivateLoading";
+import { NewPassword } from "../templates/Login/NewPassword";
 
 export function AllRoutes() {
   const Private = ({ children }) => {
     const { authenticated, loading } = useContext(AuthContext);
 
     if (loading) {
-        return <div>Carregando...</div>
+        return <PrivateLoading />
     }
 
     if (!authenticated) {
@@ -37,6 +40,9 @@ export function AllRoutes() {
           <Route path="/" element={<Page />} />
           <Route path="/login" element={<Login />} />
           <Route path="/createaccount" element={<CreateAccount />} />
+          <Route path="/recovery" element={<Recovery />} />
+          <Route path="/privateloading" element={<PrivateLoading />} />
+          <Route path="/newpassword" element={<NewPassword />} />
           <Route
             path="/architecturepage"
             element={

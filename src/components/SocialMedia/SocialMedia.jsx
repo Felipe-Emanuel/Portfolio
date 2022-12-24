@@ -5,12 +5,12 @@ import { GithubButton } from "../../animations/SocialMediaButtonChange/GithubBut
 
 export const SocialMedia = () => {
   return (
-    <div
+    <section
       className="
-    m-auto md:absolute w-60 mt-[15vh] text-center
-    font-default font-bold text-sm
-    md:w-[680px] h-24 md:h-40
-    "
+        m-auto md:absolute w-60 mt-[15vh] text-center
+        font-default font-bold text-sm
+        md:w-[680px] h-24 md:h-40
+      "
     >
       <div className="flex justify-center">
         <Text
@@ -36,9 +36,9 @@ export const SocialMedia = () => {
         Conecte-se comigo em um click...
       </Text>
       <div className="flex flex-row w-20 md:w-32 m-auto relative top-[-20px] md:top-[-40px] ">
-          <LinkedinButton />
-          <GithubButton />
+        <LinkedinButton />
+        <GithubButton />
       </div>
-    </div>
+    </section>
   );
 };

@@ -1,6 +1,6 @@
 export const ArchitectureButton = ({ content, link }) => {
   return (
-    <div
+    <button
       className="
         text-colorsIcons text-md font-bold relative py-5 lg:py-0
 
@@ -15,6 +15,6 @@ export const ArchitectureButton = ({ content, link }) => {
       <a href={link} aria-label={content}>
         {content}
       </a>
-    </div>
+    </button>
   );
 };

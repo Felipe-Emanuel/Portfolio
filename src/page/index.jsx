@@ -29,24 +29,25 @@ export function Page() {
 
   return (
     <>
+
       {onBlur === false ? (
         <>
-          <nav className="px-8 py-2">
+          <div className="px-2 py-2">
             <NavBar
               handleCLick={() => bluSetup()}
-              MenuChange={<MenuChange closing={!closing} />}
+              openMenuChange={<MenuChange closing={!closing} />}
             />
-          </nav>
+          </div>
           <main className="absolute inset-0">{pages}</main>
         </>
       ) : (
         <>
-          <nav className="px-8 py-2">
+          <div className="px-2 py-2">
             <NavBar
               handleCLick={() => bluSetup()}
-              MenuChange={<MenuChange closing={closing} />}
+              openMenuChange={<MenuChange closing={closing} />}
             />
-          </nav>
+          </div>
           <Overlay>{pages}</Overlay>
         </>
       )}

@@ -30,6 +30,7 @@ module.exports = {
         colorsIcons: "#15F4F4",
         colorsText: "#EEEEEE",
         colorsDark: "#00070C",
+        colorLoading: "#362450"
       },
       fontFamily: {
         default: "'Ubuntu', sans-serif",

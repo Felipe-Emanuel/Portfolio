@@ -1,7 +1,3 @@
-import * as yup from "yup";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { Envelope } from "phosphor-react";
 import { User } from "phosphor-react";
 import { Lock } from "phosphor-react";
@@ -16,11 +12,13 @@ import { NavBar } from "../../components/Menu/NavBar";
 import { FloatLabel } from "../../components/InputComponent/FloatLabel";
 import { LoginButton } from "../../components/Menu/LoginButton";
 import { useFormik } from "../../hooks/useFormik";
-import { BaseURL } from "../../services/baseURL";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../contexts/Auth";
+import { ElipseLoadingAnimation } from "../../animations/Loading/ElipseLoadingAnimation";
 
 export function CreateAccount() {
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const { register, msg, loading } = useContext(AuthContext);
+  const [message, setMessage] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -31,52 +29,24 @@ export function CreateAccount() {
     },
   });
 
-  const dataURL = async (data) => {
-    const res = await fetch(`${BaseURL}/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((resp) => resp.json())
-      .then((data) =>
-        data.auth != true ? setError(data.message) : navigate("/login")
-      );
-
-    return res;
-  };
-
-  async function validate() {
-    const schema = yup.object().shape({
-      email: yup
-        .string("Por favor, insira um e-mail válido!")
-        .required("Por favor, insira um e-mail válido!")
-        .email("Por favor, insira um e-mail válido!"),
-    });
-
-    try {
-      await schema.validate({ email: formik.values.email });
-      return true;
-    } catch (err) {
-      setError(err.errors);
-      return false;
-    }
-  }
+  useEffect(() => {
+    const { name, email, password, confirmPassword } = formik.values;
+    name.length || email.length || password.lengh || confirmPassword.lengh > 0
+      ? setMessage(msg)
+      : setMessage("");
+  }, [msg]);
 
   const handleShubmit = async (e) => {
     e.preventDefault();
 
-    if (!(await validate())) return;
-
-    dataURL(formik.values);
+    register(formik.values);
   };
 
   return (
     <div
       className=" 
         bg-cover bg-center h-screen bg-LoginBg
-        px-3 py-2
+        px-12 py-2
         md:px-12
         lg:px-24
         xl:px-44
@@ -87,7 +57,7 @@ export function CreateAccount() {
       <NavBar
         dynamicButton={<LoginButton content="Início" link="/" />}
         login={<LoginButton content="Entrar" link="/login" />}
-        visible={true}
+        isLoginAndCreateAccountVisible={true}
       />
 
       <main
@@ -99,7 +69,7 @@ export function CreateAccount() {
           
           lg:px-16 
           
-          max-w-2xl animate-float
+          max-w-xl animate-float
         "
       >
         <div className="rotate-180 xl:hidden">
@@ -147,8 +117,9 @@ export function CreateAccount() {
             onChange={formik.handleChange}
             ViewPassword={true}
           />
+          {loading && <ElipseLoadingAnimation />}
           <Text className="text-colorsIcons w-fit m-auto hover:text-violet-500">
-            {error}
+            {message}
           </Text>
 
           <div className="rotate-45 hidden xl:block">

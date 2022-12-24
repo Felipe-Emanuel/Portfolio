@@ -7,3 +7,13 @@
     @apply scroll-smooth;
   }
 }
+
+body::-webkit-scrollbar-thumb {
+  background: #15F4F4;   
+  border-radius: 50px
+}
+
+body::-webkit-scrollbar {
+  width: 1px; 
+  background: #00070C; 
+}

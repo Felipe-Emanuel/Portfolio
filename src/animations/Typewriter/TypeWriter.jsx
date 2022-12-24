@@ -4,7 +4,7 @@ export const FnTypeWriter = () => {
   const text = ["Linkedin...", "Github..."]
   
   return (
-    <div >
+    <div>
       <Typewriter
         onInit={(typewriter) => {
 

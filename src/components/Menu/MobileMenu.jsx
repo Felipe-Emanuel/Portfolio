@@ -28,28 +28,32 @@ export const MobileMenu = () => {
         max-w-sm max-h-fit 
       "
     >
-      <div className="py-[14vh] w-36 m-auto">
-        <div className="relative -top-16">
-          <NavLink content="Início" link="/" />
+      <nav>
+        <div className="py-[14vh] w-36 m-auto">
+          <div className="relative -top-16">
+            <NavLink content="Início" link="/" />
 
-          {links.map((link) => {
-            return <NavLink key={link} content={link.split("#")} link={link} />;
-          })}
-          <ArchitectureButton link="#Architecture" content="Arquitetura" />
+            {links.map((link) => {
+              return (
+                <NavLink key={link} content={link.split("#")} link={link} />
+              );
+            })}
+            <ArchitectureButton link="#Architecture" content="Arquitetura" />
+          </div>
         </div>
-      </div>
-      {!authenticated ? (
-        <Link
-          to="/createaccount"
-          className="w-fit m-auto absolute bottom-5 left-0 right-0"
-        >
-          <Button text="Criar Conta" />
-        </Link>
-      ) : (
-        <div className="w-fit m-auto absolute bottom-5 left-0 right-0">
-          <Button onClick={() => handleLogout()} text="sair" />
-        </div>
-      )}
+        {!authenticated ? (
+          <Link
+            to="/createaccount"
+            className="w-fit m-auto absolute bottom-5 left-0 right-0"
+          >
+            <Button text="Criar Conta" />
+          </Link>
+        ) : (
+          <div className="w-fit m-auto absolute bottom-5 left-0 right-0">
+            <Button onClick={() => handleLogout()} text="sair" />
+          </div>
+        )}
+      </nav>
     </div>
   );
 };

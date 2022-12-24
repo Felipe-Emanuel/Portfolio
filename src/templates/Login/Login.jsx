@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Envelope } from "phosphor-react";
 import { Lock } from "phosphor-react";
@@ -15,40 +15,52 @@ import { Thought } from "../../animations/LoginAnimation/Thought";
 import { NavBar } from "../../components/Menu/NavBar";
 import { LoginButton } from "../../components/Menu/LoginButton";
 import { useFormik } from "../../hooks/useFormik";
+import { Modal } from "../../components/Modal/Modal";
+import { ElipseLoadingAnimation } from "../../animations/Loading/ElipseLoadingAnimation";
 
 export function Login() {
-  const { login, dataURL, msg } = useContext(AuthContext);
-
+  const { login, dataURL, msg, authenticated, loading } =
+    useContext(AuthContext);
+  const [message, setMessage] = useState(null);
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
   });
-  
+  const { email, password } = formik.values
+
+  useEffect(() => {
+    email.length || password.length > 0
+      ? setMessage(msg)
+      : setMessage("");
+  }, [msg]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     dataURL(formik.values);
 
-    login(formik.values.email, formik.values.password);
+    login(email, password);
   };
 
   return (
     <div
       className=" 
         bg-cover bg-center h-screen bg-LoginBg
-        px-3 py-2 z-0
+        px-12 py-2 z-0
         md:px-12
         lg:px-24
         xl:px-44
         2xl:px-64
       "
     >
+      {authenticated && <Modal />}
+
       <NavBar
         dynamicButton={<LoginButton content="Início" link="/" />}
         createAccount={<Button text="Criar Conta" />}
-        visible={true}
+        isLoginAndCreateAccountVisible={true}
       />
       <Thought />
       <main
@@ -60,7 +72,7 @@ export function Login() {
           
           lg:px-16 
           
-          max-w-2xl animate-float
+          max-w-xl animate-float
         "
       >
         <div className="rotate-180 xl:hidden">
@@ -101,12 +113,13 @@ export function Login() {
               </Text>
             </label>
 
-            <button className="hover:text-violet-500">
+            <a href="/recovery" className="hover:text-violet-500">
               Esqueceu sua senha?
-            </button>
+            </a>
           </div>
-          <Text className="text-colorsIcons w-fit m-auto hover:text-violet-500">
-            {msg}
+          {loading && <ElipseLoadingAnimation />}
+          <Text className="text-colorsIcons w-fit m-auto text-center hover:text-violet-500">
+            {message}
           </Text>
           <div className="text-center pt-4 lg:pb-4">
             <Button className="text-xs ring-violet-500" text="Entrar" />

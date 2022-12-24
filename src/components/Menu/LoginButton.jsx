@@ -1,8 +1,10 @@
-export const LoginButton = ({ content, link, className }) => {
+import { Link } from "react-router-dom";
+
+export const LoginButton = ({ content, link, className, onClick }) => {
   return (
-    <>
-      <div
-        className={`${className}
+    <button
+      onClick={onClick}
+      className={`${className}
           text-colorsText lg:text-md font-bold relative top-2 lg:top-0
 
           after:absolute after:bottom-3 after:left-[50%]
@@ -12,11 +14,10 @@ export const LoginButton = ({ content, link, className }) => {
           
           after:top-7 lg:after:top-9
         `}
-      >
-        <a href={link} aria-label={content}>
-          {content}
-        </a>
-      </div>
-    </>
+    >
+      <Link to={link} aria-label={content}>
+        {content}
+      </Link>
+    </button>
   );
 };

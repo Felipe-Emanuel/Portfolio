@@ -6,22 +6,25 @@ import { MobileMenu } from "./MobileMenu";
 import { useState } from "react";
 import { ArchitectureButton } from "../Button/ArchitectureButton";
 import { Link } from "react-router-dom";
+import { LoginButton } from "./LoginButton";
+import { Button } from "../Button/Button";
 
 export const NavBar = ({
+  HomeNavBar,
   className,
-  visible,
-  Architecture,
-  route,
+  isLoginAndCreateAccountVisible,
+  isArchitectureButtonActive,
+  isRouteActive,
   handleCLick,
   dynamicButton,
   login,
   logoff,
   createAccount,
-  MenuChange,
+  openMenuChange,
 }) => {
+  const { logout, authenticated } = useContext(AuthContext);
   const [menuOpened, setMenuOpened] = useState(false);
   const links = ["#projetos", "#sobre", "#contato"];
-  const { logout, authenticated } = useContext(AuthContext);
 
   const handleChangeNavBar = () => {
     setMenuOpened((isMenuOpened) => !isMenuOpened);
@@ -41,7 +44,7 @@ export const NavBar = ({
 
   return (
     <nav className={`${className} relative`}>
-      <div onClick={() => handleChangeNavBar()}>{MenuChange}</div>
+      <div onClick={() => handleChangeNavBar()}>{openMenuChange}</div>
       <div className="lg:hidden">
         {authenticated ? (
           <div onClick={() => handleLogout()}>{logoff}</div>
@@ -51,23 +54,33 @@ export const NavBar = ({
       </div>
       <div className="hidden lg:flex lg:space-x-9 py-2 space-x-2">
         <NavLink content="Início" link="/" />
-        {route &&
+        {isRouteActive &&
           links.map((link) => {
             return <NavLink key={link} content={link.split("#")} link={link} />;
           })}
-        {Architecture && (
+        {isArchitectureButtonActive && (
           <ArchitectureButton link="#Architecture" content="Arquitetura" />
         )}
       </div>
       <div className="hidden right-0 absolute lg:flex space-x-6 top-2">
         {authenticated && <div onClick={() => handleLogout()}>{logoff}</div>}
       </div>
-      {visible && (
+      {isLoginAndCreateAccountVisible && (
         <div className="right-0 absolute flex space-x-6 top-2">
           {login}
           <Link to="/createaccount">{createAccount}</Link>
         </div>
       )}
+      {HomeNavBar && <div className=" hidden right-0 absolute lg:flex lg:flex-row space-x-6 top-2">
+          {!authenticated && 
+          <>
+            <LoginButton content="Entrar" link="/login" />
+            <Link to="/createaccount">
+              <Button text="Criar Conta" />
+            </Link>
+          </>
+          }
+        </div>}
       {menuOpened && (
         <>
           <div
